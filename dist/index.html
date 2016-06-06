@@ -12,22 +12,23 @@
 
  <body ng-controller="GameController as gamecont">
      <button ng-click="gamecont.GameFactory.addGame()">Add game</button>
+     <button class="refreshButton" ng-click='gamecont.getGames()'>Get games</button>
    
      
    <table>
   <tr>
-    <th>Game ID</th>
+    <!--<th>Game ID</th>-->
     <th>TimeStamp</th>
-    <th>In progress</th>
+    <th>State</th>
     <th>Participants</th>
     <th>Join</th>
   </tr>
-  <tr ng-repeat="game in gamecont.GameFactory.games">
-    <td>{{game.id}}</td>
-    <td>{{game.timestamp}}</td>
-    <td>lel</td>
-    <td>{{game.users[0]}} - {{game.users[1]}}</td>
-    <td><button ng-click='gamecont.GameFactory.joinGame(game)'>Join game</button></td>
+  <tr ng-repeat="game in gamecont.GameFactory.games | filter:{state: 'open'}">
+    <!--<td>{{game.id}}</td>-->
+    <td>{{game.createdOn | date : 'short'}}</td>
+    <td>{{game.state}}</td>
+    <td>{{game.players[0].name}} - {{game.players[1].name}}</td>
+    <td><button ng-click='gamecont.joinGame(game)'>Join game</button></td>
   </tr>
 </table> 
      
